@@ -70,6 +70,7 @@
                     <p><strong>作成日:</strong> {{ book.created_at }}</p>
                     <p><strong>更新日:</strong> {{ book.updated_at }}</p>
                 </div>
+                <a class="button" href="{% url 'product_detail' book.id %}">詳細を見る</a>
             </li>
             {% endfor %}
         </ul>
