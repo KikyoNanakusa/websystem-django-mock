@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from .models import Product, Review  # Reviewモデルをインポート
 
 
 def index(request):
@@ -11,4 +11,9 @@ def index(request):
 def product_detail(request, product_id):
     # 特定の商品の詳細情報を取得
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'product_detail.html', {'product': product})
+    # 対象商品のレビューを取得
+    reviews = Review.objects.filter(product=product)
+    return render(request, 'product_detail.html', {
+        'product': product,
+        'reviews': reviews
+    })
