@@ -21,4 +21,5 @@ from BookReview import views  # views モジュールをインポート
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # 詳細ページ
 ]
