@@ -21,9 +21,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: django
-      POSTGRES_PASSWORD: django_password
-      POSTGRES_DB: django_db
+      - .env
     ports:
       - "5432:5432"
 
