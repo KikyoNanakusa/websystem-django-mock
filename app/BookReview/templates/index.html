@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Review</title>
+    <style>
+        /* CSSはそのまま流用 */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .book-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .book-item:last-child {
+            border-bottom: none;
+        }
+        .book-title {
+            font-size: 1.2em;
+            color: #35424a;
+        }
+        .book-details {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>書評へようこそ！</h1>
+        <p>書籍の推薦やレビューが掲載されているサイトを作りました。</p>
+    </header>
+    <div class="container">
+        <h2>Book List</h2>
+        <ul class="book-list">
+            {% for book in books %}
+            <li class="book-item">
+                <div class="book-title">{{ book.name }}</div>
+                <div class="book-details">
+                    <p><strong>Description:</strong> {{ book.description }}</p>
+                    <p><strong>Price:</strong> ${{ book.price }}</p>
+                    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+                    <p><strong>作成日:</strong> {{ book.created_at }}</p>
+                    <p><strong>更新日:</strong> {{ book.updated_at }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
