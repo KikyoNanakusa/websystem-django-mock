@@ -62,6 +62,13 @@
         <p>この商品に関するレビューはまだありません。</p>
         {% endif %}
         
+        <h3>レビューを投稿する</h3>
+        <form method="post" class="review-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">投稿</button>
+        </form>
+        
         <p><a href="{% url 'index' %}">← 戻る</a></p>
     </div>
 </body>
