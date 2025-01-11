@@ -44,6 +44,24 @@
         <p><strong>ISBN:</strong> {{ product.isbn }}</p>
         <p><strong>作成日:</strong> {{ product.created_at }}</p>
         <p><strong>更新日:</strong> {{ product.updated_at }}</p>
+        
+        <h3>レビュー一覧</h3>
+        {% if reviews %}
+        <ul class="review-list">
+            {% for review in reviews %}
+            <li class="review-item">
+                <h3>{{ review.title }}</h3>
+                <p><strong>投稿者:</strong> {{ review.user.name }}</p>
+                <p><strong>評価:</strong> {{ review.evaluation_point }}/5</p>
+                <p>{{ review.content }}</p>
+                <p><strong>投稿日:</strong> {{ review.created_at }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>この商品に関するレビューはまだありません。</p>
+        {% endif %}
+        
         <p><a href="{% url 'index' %}">← 戻る</a></p>
     </div>
 </body>
