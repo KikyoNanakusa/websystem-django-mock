@@ -4,9 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .book-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .book-item:last-child {
+            border-bottom: none;
+        }
+        .book-title {
+            font-size: 1.2em;
+            color: #35424a;
+        }
+        .book-details {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Book Review!</h1>
-    <p>This is the homepage.</p>
+    <header>
+        <h1>書評へようこそ！</h1>
+        <p>書籍の推薦やレビューが掲載されているサイトを作りました。</p>
+    </header>
+    <div class="container">
+        <h2>Book List</h2>
+        <ul class="book-list">
+            <li class="book-item">
+                <div class="book-title">The Great Gatsby</div>
+                <div class="book-details">
+                    <p><strong>Description:</strong> ジャズ時代を舞台に、富、愛、アメリカンドリームをテーマにした小説。</p>
+                    <p><strong>Price:</strong> $10.99</p>
+                    <p><strong>ISBN:</strong> 978-0743273565</p>
+                    <p><strong>作成日:</strong> 2023-01-10</p>
+                    <p><strong>更新日:</strong> 2023-06-15</p>
+                </div>
+            </li>
+            <li class="book-item">
+                <div class="book-title">To Kill a Mockingbird</div>
+                <div class="book-details">
+                    <p><strong>Description:</strong> ディープサウスにおける人種と正義についての古典的な物語。</p>
+                    <p><strong>Price:</strong> $8.99</p>
+                    <p><strong>ISBN:</strong> 978-0060935467</p>
+                    <p><strong>作成日:</strong> 2023-02-20</p>
+                    <p><strong>更新日:</strong> 2023-07-01</p>
+                </div>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
