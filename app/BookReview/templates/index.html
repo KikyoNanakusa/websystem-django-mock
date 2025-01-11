@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Review</title>
     <style>
+        /* CSSはそのまま流用 */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -59,26 +60,18 @@
     <div class="container">
         <h2>Book List</h2>
         <ul class="book-list">
+            {% for book in books %}
             <li class="book-item">
-                <div class="book-title">The Great Gatsby</div>
+                <div class="book-title">{{ book.title }}</div>
                 <div class="book-details">
-                    <p><strong>Description:</strong> ジャズ時代を舞台に、富、愛、アメリカンドリームをテーマにした小説。</p>
-                    <p><strong>Price:</strong> $10.99</p>
-                    <p><strong>ISBN:</strong> 978-0743273565</p>
-                    <p><strong>作成日:</strong> 2023-01-10</p>
-                    <p><strong>更新日:</strong> 2023-06-15</p>
+                    <p><strong>Description:</strong> {{ book.description }}</p>
+                    <p><strong>Price:</strong> ${{ book.price }}</p>
+                    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+                    <p><strong>作成日:</strong> {{ book.created_at }}</p>
+                    <p><strong>更新日:</strong> {{ book.updated_at }}</p>
                 </div>
             </li>
-            <li class="book-item">
-                <div class="book-title">To Kill a Mockingbird</div>
-                <div class="book-details">
-                    <p><strong>Description:</strong> ディープサウスにおける人種と正義についての古典的な物語。</p>
-                    <p><strong>Price:</strong> $8.99</p>
-                    <p><strong>ISBN:</strong> 978-0060935467</p>
-                    <p><strong>作成日:</strong> 2023-02-20</p>
-                    <p><strong>更新日:</strong> 2023-07-01</p>
-                </div>
-            </li>
+            {% endfor %}
         </ul>
     </div>
 </body>
