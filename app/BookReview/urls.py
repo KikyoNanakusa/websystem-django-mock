@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # 詳細ページ
+    path('login/', views.login_view, name='login'),  # ログインページ
 ]
