@@ -16,3 +16,23 @@ class ReviewForm(forms.ModelForm):
             'content': 'レビュー内容',
             'evaluation_point': '評価点 (1〜5)',
         }
+
+
+class LoginForm(forms.Form):
+    """ログイン用フォーム"""
+    email = forms.EmailField(
+        label="メールアドレス",
+        max_length=100,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'メールアドレスを入力してください'
+        })
+    )
+    password = forms.CharField(
+        label="パスワード",
+        max_length=128,
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'パスワードを入力してください'
+        })
+    )
