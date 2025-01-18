@@ -15,9 +15,16 @@ class User(models.Model):
 
 class Product(models.Model):
     """商品を表すモデル"""
+    CATEGORY_CHOICES = [
+        ('book', '本'),
+        ('game', 'ゲーム'),
+        ('dvd', 'DVD'),
+    ]
+
     name = models.CharField(max_length=100)  # 商品名
     description = models.TextField()  # 商品説明
-    isbn = models.CharField(max_length=13, blank=True, null=True)  # ISBN番号
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default='book')  # カテゴリ
+    isbn = models.CharField(max_length=13, blank=True, null=True)  # ISBN番号 （本のみ）
     price = models.DecimalField(max_digits=10, decimal_places=2)  # 商品価格
     created_at = models.DateTimeField(auto_now_add=True)  # 作成日時
     updated_at = models.DateTimeField(auto_now=True)  # 更新日時
