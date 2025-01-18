@@ -62,12 +62,16 @@
         <p>この商品に関するレビューはまだありません。</p>
         {% endif %}
         
+        {% if logged_in_user %}
         <h3>レビューを投稿する</h3>
         <form method="post" class="review-form">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">投稿</button>
         </form>
+        {% else %}
+        <p>レビューを投稿するにはログインが必要です。<a href="{% url 'login' %}">ログイン</a></p>
+        {% endif %}
         
         <p><a href="{% url 'index' %}">← 戻る</a></p>
     </div>

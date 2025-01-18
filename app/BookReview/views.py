@@ -3,27 +3,38 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Product, Review, User  # モデルのインポート
 from .forms import ReviewForm, LoginForm  # フォームのインポート
+from django.urls import reverse
 
 
 def index(request):
-    """トップページ - 商品一覧を表示"""
-    products = Product.objects.all()
-    return render(request, 'index.html', {'books': products})
+    """トップページ - 商品カテゴリ一覧を表示"""
+    categories = [
+        {'key': 'book', 'name': '本'},
+        {'key': 'game', 'name': 'ゲーム'},
+        {'key': 'dvd', 'name': 'DVD'},
+    ]
+    return render(request, 'index.html', {'categories': categories})
+
+
+def category_products(request, category_key):
+    """カテゴリごとの商品一覧を表示"""
+    # カテゴリに基づいた商品を取得
+    products = Product.objects.filter(category=category_key)
+    return render(request, 'category_products.html', {'products': products, 'category_key': category_key})
 
 
 def product_detail(request, product_id):
     """商品詳細ページ - レビュー投稿機能"""
-    # ユーザーがログインしているか確認
-    if 'user_id' not in request.session:
-        return redirect('login')  # ログインページへリダイレクト
-
     product = get_object_or_404(Product, id=product_id)
     reviews = Review.objects.filter(product=product)
 
-    # ログイン中のユーザーを取得
-    logged_in_user = User.objects.get(id=request.session['user_id'])
+    # ログインしていない場合でも商品詳細ページにはアクセスできる
+    logged_in_user = None
+    if 'user_id' in request.session:
+        # ログイン中のユーザーを取得
+        logged_in_user = User.objects.get(id=request.session['user_id'])
 
-    if request.method == 'POST':
+    if request.method == 'POST' and logged_in_user:
         form = ReviewForm(request.POST)
         if form.is_valid():
             # 同じユーザーが同じ商品にレビューを投稿しているか確認
@@ -51,11 +62,15 @@ def product_detail(request, product_id):
         'product': product,
         'reviews': reviews,
         'form': form,
+        'logged_in_user': logged_in_user,  # ログイン中のユーザー情報を渡す
     })
 
 
 def login_view(request):
     """ログインページ"""
+    # nextパラメータを取得、デフォルトは'index'（トップページ）
+    next_url = request.GET.get('next', 'index')
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -70,7 +85,7 @@ def login_view(request):
                     request.session['user_id'] = user.id
                     request.session['user_name'] = user.name
                     messages.success(request, "ログインに成功しました！")
-                    return redirect('index')
+                    return redirect(next_url)  # ログイン後にnext_urlにリダイレクト
                 else:
                     messages.error(request, "パスワードが間違っています。")
             except User.DoesNotExist:

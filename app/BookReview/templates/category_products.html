@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category_key }}のカテゴリ商品一覧</title>
+</head>
+<body>
+    <header>
+        <h1>{{ category_key }} の商品一覧</h1>
+    </header>
+
+    <div class="container">
+        <ul>
+            {% for product in products %}
+            <li>
+                <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - ¥{{ product.price }}
+            </li>
+            {% empty %}
+            <li>このカテゴリには商品がありません。</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
