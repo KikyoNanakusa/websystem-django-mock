@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Review</title>
+    <title>商品カテゴリ一覧</title>
     <style>
-        /* CSSはそのまま流用 */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -31,46 +30,39 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .book-list {
+        ul {
             list-style-type: none;
             padding: 0;
         }
-        .book-item {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
         }
-        .book-item:last-child {
-            border-bottom: none;
-        }
-        .book-title {
-            font-size: 1.2em;
+        a {
+            text-decoration: none;
             color: #35424a;
+            font-weight: bold;
         }
-        .book-details {
-            font-size: 0.9em;
-            color: #555;
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>書評へようこそ！</h1>
-        <p>書籍の推薦やレビューが掲載されているサイトを作りました。</p>
+        <h1>商品カテゴリへようこそ！</h1>
+        <p>カテゴリを選択して、レビューを見たり投稿したりしましょう。</p>
     </header>
     <div class="container">
-        <h2>Book List</h2>
-        <ul class="book-list">
-            {% for book in books %}
-            <li class="book-item">
-                <div class="book-title">{{ book.name }}</div>
-                <div class="book-details">
-                    <p><strong>Description:</strong> {{ book.description }}</p>
-                    <p><strong>Price:</strong> ${{ book.price }}</p>
-                    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-                    <p><strong>作成日:</strong> {{ book.created_at }}</p>
-                    <p><strong>更新日:</strong> {{ book.updated_at }}</p>
-                </div>
-                <a class="button" href="{% url 'product_detail' book.id %}">詳細を見る</a>
+        <h2>カテゴリ一覧</h2>
+        <ul>
+            {% for category in categories %}
+            <li>
+                <a href="{% url 'category_products' category.key %}">{{ category.name }}</a>
             </li>
             {% endfor %}
         </ul>

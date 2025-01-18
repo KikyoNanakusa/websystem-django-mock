@@ -6,9 +6,13 @@ from .forms import ReviewForm, LoginForm  # フォームのインポート
 
 
 def index(request):
-    """トップページ - 商品一覧を表示"""
-    products = Product.objects.all()
-    return render(request, 'index.html', {'books': products})
+    """トップページ - 商品カテゴリ一覧を表示"""
+    categories = [
+        {'key': 'book', 'name': '本'},
+        {'key': 'game', 'name': 'ゲーム'},
+        {'key': 'dvd', 'name': 'DVD'},
+    ]
+    return render(request, 'index.html', {'categories': categories})
 
 
 def product_detail(request, product_id):
