@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from BookReview import views  # views モジュールをインポート
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +26,4 @@ urlpatterns = [
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # 詳細ページ
     path('login/', views.login_view, name='login'),  # ログインページ
     path('category/<str:category_key>/', views.category_products, name='category_products')
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

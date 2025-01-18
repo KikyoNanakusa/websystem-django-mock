@@ -1,0 +1,153 @@
+:root {
+    --dark-blue: #1a3e5c; /* ヘッダー・フッターの背景色 */
+    --light-blue: #e6f2f8;
+    --soft-gold: #c8a165;
+    --light-gold: #f7ead9;
+    --background-gray: #f5f5f5;
+    --text-dark: #2a2a2a;
+    --text-light: #6c6c6c;
+    --header-footer-text: #ffffff; /* ヘッダー・フッターの文字色 */
+}
+
+/* グローバルスタイル */
+body {
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic Pro", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-gray);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: var(--dark-blue);
+    font-weight: 700;
+}
+
+h3 {
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    background-color: var(--light-blue);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ヘッダーとフッターのスタイル */
+header, footer {
+    background-color: var(--dark-blue); /* 背景色を統一 */
+    color: var(--header-footer-text); /* 文字色を統一 */
+    text-align: center;
+    padding: 1rem 0;
+}
+
+header a, footer a {
+    color: var(--soft-gold); /* リンクの色をアクセントに */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+header a:hover, footer a:hover {
+    text-decoration: underline; /* リンクのホバースタイル */
+}
+
+/* 商品リスト */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+/* 商品カード */
+li {
+    background: var(--light-gold);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid var(--soft-gold);
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+    background: var(--soft-gold);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 商品タイトル */
+li h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--dark-blue);
+}
+
+/* 商品価格 */
+li p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: var(--text-light);
+}
+
+/* 商品リンク */
+a {
+    display: inline-block;
+    color: var(--dark-blue);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+a:hover {
+    color: var(--soft-gold);
+    text-decoration: underline;
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.container {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* 商品なしメッセージ */
+li:only-child {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 2rem;
+    background: var(--light-blue);
+    color: var(--text-dark);
+    border: 1px dashed var(--dark-blue);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    ul {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    li {
+        padding: 1rem;
+    }
+}
