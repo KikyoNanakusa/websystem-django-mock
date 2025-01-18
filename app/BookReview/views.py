@@ -15,6 +15,13 @@ def index(request):
     return render(request, 'index.html', {'categories': categories})
 
 
+def category_products(request, category_key):
+    """カテゴリごとの商品一覧を表示"""
+    # カテゴリに基づいた商品を取得
+    products = Product.objects.filter(category=category_key)
+    return render(request, 'category_products.html', {'products': products, 'category_key': category_key})
+
+
 def product_detail(request, product_id):
     """商品詳細ページ - レビュー投稿機能"""
     # ユーザーがログインしているか確認
