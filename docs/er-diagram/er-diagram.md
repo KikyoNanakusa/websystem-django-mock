@@ -9,6 +9,13 @@ erDiagram
         datetime updated_at
     }
 
+    Categories {
+        string UniqueID PK
+        string name
+        datetime created_at
+        datetime updated_at
+    }
+
     Products {
         string UniqueID PK
         string name
@@ -17,6 +24,12 @@ erDiagram
         decimal price
         datetime created_at
         datetime updated_at
+    }
+
+    ProductCategories {
+        string productId FK
+        string categoryId FK
+        datetime created_at
     }
 
     Review {
@@ -32,4 +45,6 @@ erDiagram
 
     Users ||--o{ Review : "has"
     Products ||--o{ Review : "is reviewed by"
+    Products ||--o{ ProductCategories : "belongs to"
+    Categories ||--o{ ProductCategories : "includes"
 ```
