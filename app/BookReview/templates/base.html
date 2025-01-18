@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TYUTAYA{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style/global.css' %}">
+</head>
+<body>
+    <!-- 共通ヘッダー -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">ホーム</a></li>
+                {% comment %} <li><a href="{% url 'about' %}">概要</a></li> {% endcomment %}
+                {% comment %} <li><a href="{% url 'contact' %}">お問い合わせ</a></li> {% endcomment %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 各ページ固有のコンテンツ -->
+    <main>
+        {% block content %}
+        <!-- ページ固有の内容がここに入ります -->
+        {% endblock %}
+    </main>
+
+    <!-- 共通フッター -->
+    <footer>
+        <p>&copy; 2025 TYUTAYA incorp</p>
+    </footer>
+</body>
+</html>
