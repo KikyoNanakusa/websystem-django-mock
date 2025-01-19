@@ -101,7 +101,7 @@ def logout_view(request):
     """ログアウト処理"""
     request.session.flush()  # セッションをクリア
     messages.success(request, "ログアウトしました。")
-    return redirect('login')
+    return redirect('index')  # 'login' から 'index' に変更
 
 
 def signup_view(request):
