@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import check_password, make_password
 from .models import Product, Review, User  # モデルのインポート
 from .forms import ReviewForm, LoginForm  # フォームのインポート
 from django.urls import reverse
+from .forms import SignupForm  # ユーザー登録用フォームをインポート
 
 
 def index(request):
@@ -101,3 +102,22 @@ def logout_view(request):
     request.session.flush()  # セッションをクリア
     messages.success(request, "ログアウトしました。")
     return redirect('login')
+
+
+def signup_view(request):
+    """ユーザー登録ページ"""
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            # 新しいユーザーを作成
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data['password'])  # パスワードをハッシュ化
+            user.save()
+            messages.success(request, "アカウントが作成されました。ログインしてください。")
+            return redirect('login')  # ログインページにリダイレクト
+        else:
+            messages.error(request, "入力内容に誤りがあります。")
+    else:
+        form = SignupForm()
+
+    return render(request, 'signup.html', {'form': form})

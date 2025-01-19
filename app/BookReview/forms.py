@@ -1,5 +1,6 @@
 from django import forms
 from .models import Review
+from .models import User
 
 
 class ReviewForm(forms.ModelForm):
@@ -36,3 +37,35 @@ class LoginForm(forms.Form):
             'placeholder': 'パスワードを入力してください'
         })
     )
+
+
+class SignupForm(forms.ModelForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'パスワード'}),
+        label="パスワード"
+    )
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'パスワード（確認用）'}),
+        label="パスワード（確認用）"
+    )
+
+    class Meta:
+        model = User
+        fields = ['name', 'email', 'password']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': '名前'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'メールアドレス'}),
+        }
+        labels = {
+            'name': '名前',
+            'email': 'メールアドレス',
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+
+        if password and confirm_password and password != confirm_password:
+            raise forms.ValidationError("パスワードが一致しません。")
+        return cleaned_data

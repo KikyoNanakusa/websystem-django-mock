@@ -22,8 +22,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # 詳細ページ
+    path('', views.index, name='index'),  # トップページ
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # 商品詳細ページ
     path('login/', views.login_view, name='login'),  # ログインページ
-    path('category/<str:category_key>/', views.category_products, name='category_products')
+    path('logout/', views.logout_view, name='logout'),  # ログアウトページ
+    path('signup/', views.signup_view, name='signup'),  # ユーザー登録ページ
+    path('category/<str:category_key>/', views.category_products, name='category_products')  # カテゴリ別商品ページ
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
