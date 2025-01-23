@@ -1,27 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
-from .models import Product, Review, User  # モデルのインポート
-from .forms import ReviewForm, LoginForm  # フォームのインポート
+from .models import Product, Review, User, Category, ProductCategory  # モデルのインポート
+from .forms import ReviewForm, LoginForm, SignupForm  # フォームのインポート
 from django.urls import reverse
-from .forms import SignupForm  # ユーザー登録用フォームをインポート
 
 
 def index(request):
     """トップページ - 商品カテゴリ一覧を表示"""
-    categories = [
-        {'key': 'book', 'name': '本'},
-        {'key': 'game', 'name': 'ゲーム'},
-        {'key': 'dvd', 'name': 'DVD'},
-    ]
+    categories = Category.objects.all()  # カテゴリをデータベースから取得するコード
     return render(request, 'index.html', {'categories': categories})
 
 
-def category_products(request, category_key):
+def category_products(request, category_id):
     """カテゴリごとの商品一覧を表示"""
     # カテゴリに基づいた商品を取得
-    products = Product.objects.filter(category=category_key)
-    return render(request, 'category_products.html', {'products': products, 'category_key': category_key})
+    category = get_object_or_404(Category, id=category_id)
+    product_ids = ProductCategory.objects.filter(category=category).values_list('product_id', flat=True)
+    products = Product.objects.filter(id__in=product_ids)
+    return render(request, 'category_products.html', {'products': products, 'category': category})
 
 
 def product_detail(request, product_id):
