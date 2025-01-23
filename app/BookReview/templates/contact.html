@@ -1,0 +1,21 @@
+<!-- BookReview/templates/contact.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}お問い合わせ{% endblock %}
+
+{% block content %}
+<header>
+    <h1>お問い合わせ</h1>
+    <p>ご質問やご意見がございましたら、下記へお問い合わせください。</p>
+</header>
+
+<div class="contact-container">
+    <div class="contact-info">
+        <h2>会社情報</h2>
+        <p><strong>住所:</strong> 〒123-4567 静岡県浜松市中央区 1-2-3</p>
+        <p><strong>電話番号:</strong> 03-1234-5678</p>
+        <p><strong>営業時間:</strong> 月〜金 9:00〜18:00</p>
+    </div>
+</div>
+{% endblock %}
