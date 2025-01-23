@@ -73,8 +73,8 @@ def product_detail(request, product_id):
 
 def login_view(request):
     """ログインページ"""
-    # nextパラメータを取得、デフォルトは'index'（トップページ）
-    next_url = request.GET.get('next', 'index')
+    # nextパラメータを取得（ログイン後に戻るページ）
+    next_url = request.GET.get('next', 'index')  # デフォルトはトップページ
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -90,7 +90,9 @@ def login_view(request):
                     request.session['user_id'] = str(user.id)  # UUIDを文字列に変換して保存
                     request.session['user_name'] = user.name
                     messages.success(request, "ログインに成功しました！")
-                    return redirect(next_url)  # ログイン後にnext_urlにリダイレクト
+
+                    # ログイン後にnext_url（product_detail）にリダイレクト
+                    return redirect(next_url)  # next_urlが'product_detail'であれば、レビュー投稿ページに遷移
                 else:
                     messages.error(request, "パスワードが間違っています。")
             except User.DoesNotExist:
@@ -103,9 +105,13 @@ def login_view(request):
 
 def logout_view(request):
     """ログアウト処理"""
-    request.session.flush()  # セッションをクリア
+    # セッションからユーザー情報を削除
+    if 'user_id' in request.session:
+        del request.session['user_id']
+    if 'user_name' in request.session:
+        del request.session['user_name']
     messages.success(request, "ログアウトしました。")
-    return redirect('index')  # 'login' から 'index' に変更
+    return redirect('index')
 
 
 def signup_view(request):

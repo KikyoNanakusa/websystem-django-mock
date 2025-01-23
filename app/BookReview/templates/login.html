@@ -88,6 +88,10 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
+            
+            <!-- 隠しフィールドでnextパラメータを渡す -->
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+            
             <button type="submit">ログイン</button>
         </form>
         {% for message in messages %}
