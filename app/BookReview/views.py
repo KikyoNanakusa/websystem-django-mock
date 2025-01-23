@@ -125,3 +125,12 @@ def signup_view(request):
 
 def about(request):
     return render(request, 'about.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        # フォームのデータ処理（例：送信内容をメールで送信するなど）
+        # 必要に応じて処理を追加してください
+        pass
+
+    return render(request, 'contact.html')
