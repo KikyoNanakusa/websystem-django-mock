@@ -1,33 +1,33 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
-from .models import Product, Review, User  # モデルのインポート
-from .forms import ReviewForm, LoginForm  # フォームのインポート
-from django.urls import reverse
-from .forms import SignupForm  # ユーザー登録用フォームをインポート
+from .models import Product, Review, User, Category, ProductCategory  # モデルのインポート
+from .forms import ReviewForm, LoginForm, SignupForm  # フォームのインポート
 
 
 def index(request):
     """トップページ - 商品カテゴリ一覧を表示"""
-    categories = [
-        {'key': 'book', 'name': '本'},
-        {'key': 'game', 'name': 'ゲーム'},
-        {'key': 'dvd', 'name': 'DVD'},
-    ]
+    categories = Category.objects.all()  # カテゴリをデータベースから取得するコード
     return render(request, 'index.html', {'categories': categories})
 
 
-def category_products(request, category_key):
-    """カテゴリごとの商品一覧を表示"""
-    # カテゴリに基づいた商品を取得
-    products = Product.objects.filter(category=category_key)
-    return render(request, 'category_products.html', {'products': products, 'category_key': category_key})
+def category_products(request, category_id):
+    """カテゴリ内の商品一覧ページ"""
+    category = get_object_or_404(Category, id=category_id)
+    product_categories = ProductCategory.objects.filter(category=category).select_related('product')
+    products = [pc.product for pc in product_categories]
+
+    return render(request, 'category_products.html', {
+        'category_key': category.name,
+        'products': products,
+    })
 
 
 def product_detail(request, product_id):
     """商品詳細ページ - レビュー投稿機能"""
     product = get_object_or_404(Product, id=product_id)
-    reviews = Review.objects.filter(product=product)
+    reviews = product.reviews.all()  # 商品に関連するレビューを取得
+    form = None  # レビュー投稿用フォーム（例: レビュー用フォームを追加する場合）
 
     # ログインしていない場合でも商品詳細ページにはアクセスできる
     logged_in_user = None
@@ -63,7 +63,7 @@ def product_detail(request, product_id):
         'product': product,
         'reviews': reviews,
         'form': form,
-        'logged_in_user': logged_in_user,  # ログイン中のユーザー情報を渡す
+        'logged_in_user': request.user if request.user.is_authenticated else None,  # ログイン中のユーザー情報を渡す
     })
 
 
