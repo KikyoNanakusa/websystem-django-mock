@@ -28,7 +28,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     """商品を表すモデル"""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # ユニークID
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) # ユニークID
     name = models.CharField(max_length=100)  # 商品名
     description = models.TextField()  # 商品説明
     isbn = models.CharField(max_length=13, blank=True, null=True)  # ISBN番号（本のみ）

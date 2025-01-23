@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }}</title>
+    <h1>{{ product.name }}</h1>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,38 +43,38 @@
     </header>
     <div class="container">
         <h2>{{ product.name }}</h2>
-        <p><strong>Description:</strong> {{ product.description }}</p>
-        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <p><strong>説明:</strong> {{ product.description }}</p>
+        <p><strong>価格:</strong> ¥{{ product.price }}</p>
         <p><strong>ISBN:</strong> {{ product.isbn }}</p>
         <p><strong>作成日:</strong> {{ product.created_at }}</p>
         <p><strong>更新日:</strong> {{ product.updated_at }}</p>
-        
+    
         <h3>レビュー一覧</h3>
         {% if reviews %}
-        <ul class="review-list">
+        <ul>
             {% for review in reviews %}
-            <li class="review-item">
-                <h3>{{ review.title }}</h3>
-                <p><strong>投稿者:</strong> {{ review.user.name }}</p>
-                <p><strong>評価:</strong> {{ review.evaluation_point }}/5</p>
+            <li>
+                <h4>{{ review.title }}</h4>
+                <p>投稿者: {{ review.user.name }}</p>
+                <p>評価: {{ review.evaluation_point }} / 5</p>
                 <p>{{ review.content }}</p>
-                <p><strong>投稿日:</strong> {{ review.created_at }}</p>
+                <p>投稿日: {{ review.created_at }}</p>
             </li>
             {% endfor %}
         </ul>
         {% else %}
-        <p>この商品に関するレビューはまだありません。</p>
+        <p>この商品にレビューはありません。</p>
         {% endif %}
-        
+    
         {% if logged_in_user %}
         <h3>レビューを投稿する</h3>
-        <form method="post" class="review-form">
+        <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">投稿</button>
         </form>
         {% else %}
-        <p>レビューを投稿するにはログインが必要です。<a href="{% url 'login' %}">ログイン</a></p>
+        <p>レビューを投稿するには <a href="{% url 'login' %}">ログイン</a> してください。</p>
         {% endif %}
         
         <p><a href="{% url 'index' %}">← 戻る</a></p>

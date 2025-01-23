@@ -12,18 +12,22 @@ def index(request):
 
 
 def category_products(request, category_id):
-    """カテゴリごとの商品一覧を表示"""
-    # カテゴリに基づいた商品を取得
+    """カテゴリ内の商品一覧ページ"""
     category = get_object_or_404(Category, id=category_id)
-    product_ids = ProductCategory.objects.filter(category=category).values_list('product_id', flat=True)
-    products = Product.objects.filter(id__in=product_ids)
-    return render(request, 'category_products.html', {'products': products, 'category': category})
+    product_categories = ProductCategory.objects.filter(category=category).select_related('product')
+    products = [pc.product for pc in product_categories]
+
+    return render(request, 'category_products.html', {
+        'category_key': category.name,
+        'products': products,
+    })
 
 
 def product_detail(request, product_id):
     """商品詳細ページ - レビュー投稿機能"""
     product = get_object_or_404(Product, id=product_id)
-    reviews = Review.objects.filter(product=product)
+    reviews = product.reviews.all()  # 商品に関連するレビューを取得
+    form = None  # レビュー投稿用フォーム（例: レビュー用フォームを追加する場合）
 
     # ログインしていない場合でも商品詳細ページにはアクセスできる
     logged_in_user = None
@@ -59,7 +63,7 @@ def product_detail(request, product_id):
         'product': product,
         'reviews': reviews,
         'form': form,
-        'logged_in_user': logged_in_user,  # ログイン中のユーザー情報を渡す
+        'logged_in_user': request.user if request.user.is_authenticated else None,  # ログイン中のユーザー情報を渡す
     })
 
 
