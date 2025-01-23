@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),  # トップページ
+    path('about/', views.about, name='about'),
     path('product/<uuid:product_id>/', views.product_detail, name='product_detail'),  # 商品詳細ページ
     path('login/', views.login_view, name='login'),  # ログインページ
     path('logout/', views.logout_view, name='logout'),  # ログアウトページ
