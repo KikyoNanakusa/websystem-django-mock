@@ -29,11 +29,15 @@ def product_detail(request, product_id):
     reviews = product.reviews.all()  # 商品に関連するレビューを取得
     form = None  # レビュー投稿用フォーム（例: レビュー用フォームを追加する場合）
 
-    # ログインしていない場合でも商品詳細ページにはアクセスできる
+    # ログインしていない場合
     logged_in_user = None
     if 'user_id' in request.session:
         # ログイン中のユーザーを取得
         logged_in_user = User.objects.get(id=request.session['user_id'])
+
+    if not logged_in_user:
+        # ログインしていない場合、nextパラメータをURLに追加してログインページにリダイレクト
+        return redirect(f"{reverse('login')}?next={request.path}")
 
     if request.method == 'POST' and logged_in_user:
         form = ReviewForm(request.POST)
@@ -83,7 +87,7 @@ def login_view(request):
                 user = User.objects.get(email=email)
                 if check_password(password, user.password):
                     # セッションにユーザー情報を保存
-                    request.session['user_id'] = user.id
+                    request.session['user_id'] = str(user.id)  # UUIDを文字列に変換して保存
                     request.session['user_name'] = user.name
                     messages.success(request, "ログインに成功しました！")
                     return redirect(next_url)  # ログイン後にnext_urlにリダイレクト
