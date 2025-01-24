@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Product, Review, User, Category, ProductCategory  # モデルのインポート
 from .forms import ReviewForm, LoginForm, SignupForm  # フォームのインポート
+from django.urls import reverse
 
 
 def index(request):
