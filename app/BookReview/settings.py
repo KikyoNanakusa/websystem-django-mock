@@ -136,3 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # データベースにセッションを保存
 SESSION_COOKIE_AGE = 3600  # セッションの有効期限（秒）
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # セッションをブラウザが閉じても維持
+SESSION_COOKIE_SECURE = False  # HTTPSを使用しない場合はFalse
+SESSION_COOKIE_HTTPONLY = True  # クッキーへのJavaScriptアクセスを無効化

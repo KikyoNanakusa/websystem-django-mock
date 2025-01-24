@@ -33,11 +33,15 @@ def product_detail(request, product_id):
     # ログインしていない場合
     logged_in_user = None
     if 'user_id' in request.session:
-        # ログイン中のユーザーを取得
-        logged_in_user = User.objects.get(id=request.session['user_id'])
+        try:
+            # ログイン中のユーザーを取得
+            logged_in_user = User.objects.get(id=request.session['user_id'])
+        except User.DoesNotExist:
+            # ユーザーが存在しない場合はセッションを無効化
+            del request.session['user_id']
 
+    # ログインしていない場合、nextパラメータをURLに追加してログインページにリダイレクト
     if not logged_in_user:
-        # ログインしていない場合、nextパラメータをURLに追加してログインページにリダイレクト
         return redirect(f"{reverse('login')}?next={request.path}")
 
     if request.method == 'POST' and logged_in_user:
@@ -68,13 +72,12 @@ def product_detail(request, product_id):
         'product': product,
         'reviews': reviews,
         'form': form,
-        'logged_in_user': request.user if request.user.is_authenticated else None,  # ログイン中のユーザー情報を渡す
+        'logged_in_user': logged_in_user,  # ログイン中のユーザー情報を渡す
     })
 
 
 def login_view(request):
     """ログインページ"""
-    # nextパラメータを取得（ログイン後に戻るページ）
     next_url = request.GET.get('next', 'index')  # デフォルトはトップページ
 
     if request.method == 'POST':
@@ -83,17 +86,15 @@ def login_view(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            # ユーザー認証
             try:
                 user = User.objects.get(email=email)
                 if check_password(password, user.password):
                     # セッションにユーザー情報を保存
-                    request.session['user_id'] = str(user.id)  # UUIDを文字列に変換して保存
+                    request.session['user_id'] = str(user.id)
                     request.session['user_name'] = user.name
+                    request.session.set_expiry(0)  # ブラウザ終了時にセッションを削除（任意）
                     messages.success(request, "ログインに成功しました！")
-
-                    # ログイン後にnext_url（product_detail）にリダイレクト
-                    return redirect(next_url)  # next_urlが'product_detail'であれば、レビュー投稿ページに遷移
+                    return redirect(next_url)
                 else:
                     messages.error(request, "パスワードが間違っています。")
             except User.DoesNotExist:
