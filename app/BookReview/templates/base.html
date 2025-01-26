@@ -26,6 +26,17 @@
     </main>
 
     <!-- 共通フッター -->
+    <nav>
+        <ul>
+            <!-- 他のナビゲーションリンク -->
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">ログアウト</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">ログイン</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
     <footer>
         <p>&copy; 2025 TYUTAYA incorp</p>
     </footer>

@@ -91,7 +91,6 @@
         {% endif %}
         
         <p>ログイン状態: {{ request.user.is_authenticated }}</p>
-        <p>ユーザー名: {{ request.user.username }}</p>
         
         <p><a href="{% url 'index' %}">← 戻る</a></p>
     </div>
