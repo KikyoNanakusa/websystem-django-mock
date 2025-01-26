@@ -90,3 +90,10 @@ db.sqlite3
 .env.dev
 
 .vscode/
+
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+terraform.tfvars
+
+*.pem
