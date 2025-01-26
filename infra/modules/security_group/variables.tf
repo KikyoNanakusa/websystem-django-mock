@@ -11,11 +11,17 @@ variable "vpc_id" {
 variable "allowed_ssh_cidr_blocks" {
 	description = "CIDR blocks to allow SSH traffic"
 	type 		= list(string)
-	default 	= ["133.80.0.0/16"]
+	default 	= ["133.70.0.0/16"]
 }
 
 variable "allowed_django_cidr_blocks" {
 	description = "CIDR blocks to allow Django traffic"
 	type 		= list(string)
-	default 	= ["133.80.0.0/16"]
+	default 	= ["133.70.0.0/16"]
+}
+
+variable "allowed_http_cidr_blocks" {
+	description = "CIDR blocks to allow HTTP traffic"
+	type 		= list(string)
+	default 	= ["133.70.0.0/16"]
 }

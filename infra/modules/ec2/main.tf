@@ -10,12 +10,19 @@ resource "aws_instance" "django" {
 	}
 	user_data = <<-EOF
             	#!/bin/bash
-            	echo "DB_HOST=${var.db_endpoint}" >> /etc/environment
-            	echo "DB_NAME=${var.db_name}" >> /etc/environment
-            	echo "DB_USER=${var.db_user}" >> /etc/environment
-            	echo "DB_PASSWORD=${var.db_password}" >> /etc/environment
-				echo "DB_PORT=${var.db_port}" >> /etc/environment
-				echo "DJANGO_SECRET_KEY=${var.django_secret_key}" >> /etc/environment
-            	source /etc/environment
+				sudo yum update -y
+				sudo yum install -y git
+				sudo yum install -y python3
+				sudo yum install -y pip
+				sudo yum install -y nginx
+				git clone https://github.com/KikyoNanakusa/websystem-django-mock
+				cd websystem-django-mock
+				pip install -r requirements.txt
+				echo "DATABASE_HOST=${var.db_endpoint}" >> startup.sh
+				echo "DATABASE_PORT=${var.db_port}" >> startup.sh
+				echo "POSTGRES_DB=${var.db_name}" >> startup.sh
+				echo "POSTGRES_USER=${var.db_user}" >> startup.sh
+				echo "POSTGRES_PASSWORD=${var.db_password}" >> startup.sh
+				echo "DJANGO_SECRET_KEY=${var.django_secret_key}" >> startup.sh
             	EOF
 }

@@ -7,3 +7,8 @@ output "rds_security_group_id" {
   description = "ID of the security group for RDS"
   value       = aws_security_group.rds.id
 }
+
+output "alb_security_group_id" {
+  description = "ID of the security group for the ALB"
+  value       = aws_security_group.alb.id
+}

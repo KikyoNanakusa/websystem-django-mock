@@ -37,3 +37,11 @@ module "ec2" {
 	db_port = var.db_port
 	django_secret_key = var.django_secret_key
 }
+
+module "alb" {
+	source = "./modules/alb"
+	subnet_ids = module.vpc.public_subnet_ids
+	security_group_ids = [module.security_group.alb_security_group_id]
+	vpc_id = module.vpc.vpc_id
+	target_ids = module.ec2.ec2_instance_ids
+}
