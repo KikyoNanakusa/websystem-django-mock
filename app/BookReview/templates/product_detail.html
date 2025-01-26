@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}ホームページ{% endblock %}
+{% block title %}商品詳細{% endblock %}
 
 {% block content %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>{{ product.name }}</h1>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,6 +34,15 @@
             text-decoration: none;
             color: #35424a;
         }
+        .review-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .review-list li {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +59,7 @@
     
         <h3>レビュー一覧</h3>
         {% if reviews %}
-        <ul>
+        <ul class="review-list">
             {% for review in reviews %}
             <li>
                 <h4>{{ review.title }}</h4>
@@ -66,16 +74,23 @@
         <p>この商品にレビューはありません。</p>
         {% endif %}
     
-        {% if logged_in_user %}
+        {% if request.user.is_authenticated %}
         <h3>レビューを投稿する</h3>
-        <form method="post">
+        <form method="post" action="{% url 'post_review' product.id %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">投稿</button>
         </form>
         {% else %}
-        <p>レビューを投稿するには <a href="{% url 'login' %}">ログイン</a> してください。</p>
+        <p>
+            <a href="{% url 'login' %}?next={% url 'product_detail' product.id %}">
+                ログイン
+            </a>
+            してレビューを投稿してください。
+        </p>
         {% endif %}
+        
+        <p>ログイン状態: {{ request.user.is_authenticated }}</p>
         
         <p><a href="{% url 'index' %}">← 戻る</a></p>
     </div>

@@ -1,6 +1,7 @@
 from django import forms
 from .models import Review
 from .models import User
+from django.contrib.auth import authenticate
 
 
 class ReviewForm(forms.ModelForm):
@@ -20,23 +21,19 @@ class ReviewForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    """ログイン用フォーム"""
-    email = forms.EmailField(
-        label="メールアドレス",
-        max_length=100,
-        widget=forms.EmailInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'メールアドレスを入力してください'
-        })
-    )
-    password = forms.CharField(
-        label="パスワード",
-        max_length=128,
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'パスワードを入力してください'
-        })
-    )
+    email = forms.EmailField(label='メールアドレス', max_length=100)
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        user = authenticate(email=email, password=password)
+        if not user:
+            raise forms.ValidationError("メールアドレスまたはパスワードが正しくありません。")
+        cleaned_data['user'] = user  # 認証済みユーザーを保存
+        return cleaned_data
 
 
 class SignupForm(forms.ModelForm):

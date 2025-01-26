@@ -26,6 +26,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('product/<uuid:product_id>/', views.product_detail, name='product_detail'),  # 商品詳細ページ
+    path('product/<uuid:product_id>/review/', views.post_review, name='post_review'),  # レビュー投稿処理用エンドポイント
     path('login/', views.login_view, name='login'),  # ログインページ
     path('logout/', views.logout_view, name='logout'),  # ログアウトページ
     path('signup/', views.signup_view, name='signup'),  # ユーザー登録ページ
