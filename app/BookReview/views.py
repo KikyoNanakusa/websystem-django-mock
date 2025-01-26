@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Product, Review, User, Category, ProductCategory
 from .forms import ReviewForm, LoginForm, SignupForm
+from django.contrib.auth import login, authenticate
 
 
 def index(request):
@@ -65,7 +66,7 @@ def post_review(request, product_id):
 
 def login_view(request):
     """ログインページ"""
-    next_url = request.GET.get('next', 'index')  # デフォルトはトップページ
+    next_url = request.GET.get('next', 'index')
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -73,19 +74,14 @@ def login_view(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            try:
-                user = User.objects.get(email=email)
-                if check_password(password, user.password):
-                    # セッションにユーザー情報を保存
-                    request.session['user_id'] = str(user.id)
-                    request.session['user_name'] = user.name
-                    request.session.set_expiry(0)  # ブラウザ終了時にセッションを削除（任意）
-                    messages.success(request, "ログインに成功しました！")
-                    return redirect(next_url)
-                else:
-                    messages.error(request, "パスワードが間違っています。")
-            except User.DoesNotExist:
-                messages.error(request, "該当するメールアドレスが見つかりません。")
+            # ユーザー認証
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)  # Djangoのlogin関数でログイン処理
+                messages.success(request, "ログインに成功しました！")
+                return redirect(next_url)
+            else:
+                messages.error(request, "メールアドレスまたはパスワードが間違っています。")
     else:
         form = LoginForm()
 
