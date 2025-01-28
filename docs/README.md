@@ -1,4 +1,6 @@
 # Getting Started
+開発を始めるための基本的な方法が記述されています. 
+
 1. Docker Desktopを以下からインストール
 https://www.docker.com/ja-jp/products/docker-desktop/ 
 
