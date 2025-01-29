@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ category_key }} のカテゴリ商品一覧{% endblock %}
 
-{% block content %}
-<header>
-    <h1>{{ category_key }} の商品一覧</h1>
-</header>
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style/category_products.css' %}">
+{% endblock %}
 
-<div class="container">
-    <ul>
+{% block content %}
+
+<div class="category-container">
+    <h1>{{ category_key }} の商品一覧</h1>
+    <ul class="product-list">
         {% for product in products %}
-        <li>
-            <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a> - ¥{{ product.price }}
+        <li class="product-card">
+            <a href="{% url 'product_detail' product.id %}" class="product-link">
+                <div class="product-info">
+                    <h2 class="product-name">{{ product.name }}</h2>
+                    <p class="product-price">¥{{ product.price }}</p>
+                </div>
+            </a>
         </li>
         {% empty %}
-        <li>このカテゴリには商品がありません。</li>
+        <li class="empty-message">このカテゴリには商品がありません。</li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}

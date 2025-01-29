@@ -97,3 +97,5 @@ terraform.tfstate.*
 terraform.tfvars
 
 *.pem
+
+staticfiles/

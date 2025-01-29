@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}ユーザー登録{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style/signup.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="signup-container">
@@ -8,11 +13,15 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">登録</button>
+        <button type="submit" class="signup-button">登録</button>
     </form>
+
     {% for message in messages %}
-        <p style="color: red;">{{ message }}</p>
+        <p class="error-message">{{ message }}</p>
     {% endfor %}
-    <p>すでにアカウントをお持ちですか？ <a href="{% url 'login' %}">ログイン</a></p>
+
+    <p class="login-link">
+        すでにアカウントをお持ちですか？ <a href="{% url 'login' %}">ログイン</a>
+    </p>
 </div>
 {% endblock %}

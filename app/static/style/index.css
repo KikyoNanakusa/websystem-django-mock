@@ -1,0 +1,81 @@
+:root {
+    --card-background: #ffffff; /* カード背景色 */
+    --card-shadow: rgba(0, 0, 0, 0.1); /* カードの影 */
+}
+
+/* 商品カテゴリ全体のスタイル */
+.category-container {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--card-shadow);
+}
+
+/* タイトルと説明 */
+.title {
+    font-size: 2rem;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+/* カテゴリ一覧のデザイン */
+.category-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 0;
+}
+
+.category-item {
+    margin: 0;
+}
+
+/* カテゴリカード */
+.category-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background: var(--card-background);
+    border: 1px solid var(--card-shadow);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--card-shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px var(--card-shadow);
+}
+
+/* カテゴリ名のスタイル */
+.category-name {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* リンクのデザイン */
+.category-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}

@@ -4,13 +4,14 @@
 
 {% block title %}お問い合わせ{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style/contact.css' %}">
+{% endblock %}
 {% block content %}
-<header>
-    <h1>お問い合わせ</h1>
-    <p>ご質問やご意見がございましたら、下記へお問い合わせください。</p>
-</header>
 
 <div class="contact-container">
+    <h1>お問い合わせ</h1>
+    <p>ご質問やご意見がございましたら、下記へお問い合わせください。</p>
     <div class="contact-info">
         <h2>会社情報</h2>
         <p><strong>住所:</strong> 〒123-4567 静岡県浜松市中央区 1-2-3</p>

@@ -1,0 +1,97 @@
+:root {
+    --login-border-color: #cbd5e0; /* 柔らかい境界線 */
+    --button-color: #2a4365; /* ボタンの背景色 */
+    --button-hover: #1e3552; /* ボタンホバー */
+    --card-shadow: rgba(0, 0, 0, 0.1); /* カードの影 */
+}
+
+/* ログインページのコンテナ */
+.login-container {
+    background: white;
+    border-radius: 10px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 10px var(--card-shadow);
+    width: 100%;
+    max-width: 380px;
+    margin: 5rem auto 2rem;
+    text-align: left;
+}
+
+/* タイトル */
+.login-container h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+/* フォームのスタイル */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form p {
+    width: 100%;
+}
+
+form input[type="password"],
+form input {
+    width: 100%; /* 全ての入力欄に幅を統一 */
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box; /* パディングを含めた幅計算を有効に */
+    background: var(--background-color);
+}
+
+form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+/* ログインボタン */
+button[type="submit"] {
+    background: var(--button-color);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background: var(--button-hover);
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* フッター部分 */
+.login-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.login-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+}

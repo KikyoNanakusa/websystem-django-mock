@@ -1,0 +1,139 @@
+:root {
+    --primary-color: #2a4365; /* 深い青 */
+    --background-color: #f7fafc; /* 落ち着いた薄いグレー */
+    --text-color: #2d3748; /* ダークグレー */
+    --link-color: #4a5568; /* 中間的なグレー */
+    --link-hover-color: #2c5282; /* 落ち着いたホバーカラー */
+    --card-background: white; /* カード背景色 */
+    --card-shadow: rgba(0, 0, 0, 0.1); /* カードの影 */
+}
+
+/* 全体のコンテナ */
+.product-detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--background-color);
+    border-radius: 8px;
+}
+
+/* 商品カード */
+.product-card {
+    background: var(--card-background);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--card-shadow);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.product-card h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.product-card p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+/* レビューセクション */
+.reviews-section {
+    margin-top: 2rem;
+}
+
+.reviews-section h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.review-card {
+    background: var(--card-background);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px var(--card-shadow);
+    margin-bottom: 1rem;
+}
+
+.review-card h4 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.review-card p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.no-reviews {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--link-color);
+}
+
+/* レビュー投稿フォーム */
+.review-form {
+    margin-top: 2rem;
+}
+
+.review-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-form button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.review-form button:hover {
+    background: var(--link-hover-color);
+}
+
+/* ログインメッセージ */
+.login-message {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.login-message a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-message a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+}
+
+/* 戻るリンク */
+.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+}
