@@ -3,96 +3,58 @@
 
 {% block title %}商品詳細{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style/product_detail.css' %}">
+{% endblock %}
+
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            background: #35424a;
-            color: #ffffff;
-            padding: 1rem 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        a {
-            text-decoration: none;
-            color: #35424a;
-        }
-        .review-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .review-list li {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-    </style>
-</head>
-<body>
-    <header>
+<div class="product-detail-container">
+    <div class="product-card">
         <h1>{{ product.name }}</h1>
-    </header>
-    <div class="container">
-        <h2>{{ product.name }}</h2>
         <p><strong>説明:</strong> {{ product.description }}</p>
         <p><strong>価格:</strong> ¥{{ product.price }}</p>
         <p><strong>ISBN:</strong> {{ product.isbn }}</p>
         <p><strong>作成日:</strong> {{ product.created_at }}</p>
         <p><strong>更新日:</strong> {{ product.updated_at }}</p>
-    
+    </div>
+
+    <div class="reviews-section">
         <h3>レビュー一覧</h3>
         {% if reviews %}
         <ul class="review-list">
             {% for review in reviews %}
-            <li>
+            <li class="review-card">
                 <h4>{{ review.title }}</h4>
-                <p>投稿者: {{ review.user.name }}</p>
-                <p>評価: {{ review.evaluation_point }} / 5</p>
+                <p><strong>投稿者:</strong> {{ review.user.name }}</p>
+                <p><strong>評価:</strong> {{ review.evaluation_point }} / 5</p>
                 <p>{{ review.content }}</p>
-                <p>投稿日: {{ review.created_at }}</p>
+                <p><small>投稿日: {{ review.created_at }}</small></p>
             </li>
             {% endfor %}
         </ul>
         {% else %}
-        <p>この商品にレビューはありません。</p>
+        <p class="no-reviews">この商品にレビューはありません。</p>
         {% endif %}
-    
+
         {% if request.user.is_authenticated %}
-        <h3>レビューを投稿する</h3>
-        <form method="post" action="{% url 'post_review' product.id %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">投稿</button>
-        </form>
+        <div class="review-form">
+            <h3>レビューを投稿する</h3>
+            <form method="post" action="{% url 'post_review' product.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">投稿</button>
+            </form>
+        </div>
         {% else %}
-        <p>
+        <p class="login-message">
             <a href="{% url 'login' %}?next={% url 'product_detail' product.id %}">
                 ログイン
             </a>
             してレビューを投稿してください。
         </p>
         {% endif %}
-        
-        <p>ログイン状態: {{ request.user.is_authenticated }}</p>
-        
-        <p><a href="{% url 'index' %}">← 戻る</a></p>
     </div>
-</body>
+
+    <p><a href="{% url 'index' %}" class="back-link">← 戻る</a></p>
+</div>
 {% endblock %}
