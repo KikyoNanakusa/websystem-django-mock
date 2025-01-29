@@ -86,13 +86,20 @@ main {
     box-shadow: 0 2px 4px var(--card-shadow);
 }
 
-/* フッター */
 footer {
     background-color: var(--primary-color);
     color: white;
     text-align: center;
     height: 100px;
-    margin-top: auto; /* フッターを最下部に固定 */
+    margin-top: auto; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+footer div {
+    justify-content: center;
 }
 
 footer ul {
@@ -110,4 +117,19 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+/* ログイン/ログアウトボタン */
+.auth-button .button {
+    color: white;
+    background-color: var(--link-hover-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.auth-button .button:hover {
+    background-color: #1a365d; /* さらに濃い青に */
 }

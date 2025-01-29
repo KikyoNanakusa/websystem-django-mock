@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'style/global.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
+
 <body>
     <!-- ヘッダー -->
     <header>
@@ -20,6 +22,15 @@
                     <li><a href="{% url 'index' %}">ホーム</a></li>
                     <li><a href="{% url 'about' %}">概要</a></li>
                     <li><a href="{% url 'contact' %}">お問い合わせ</a></li>
+                    <li>
+                        <div class="auth-button">
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}" class="button">ログアウト</a>
+                            {% else %}
+                            <a href="{% url 'login' %}" class="button">ログイン</a>
+                            {% endif %}
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -33,18 +44,10 @@
 
     <!-- フッター -->
     <footer>
-        <div class="container">
-            <nav aria-label="フッターナビゲーション">
-                <ul>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">ログアウト</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}">ログイン</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
+        <div>
             <p>&copy; 2025 TYUTAYA Inc.</p>
         </div>
     </footer>
 </body>
+
 </html>

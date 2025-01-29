@@ -3,103 +3,29 @@
 
 {% block title %}ログイン{% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'style/login.css' %}">
+{% endblock %}
+
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>ログイン</title>
-    <style>
-        /* ログインページのスタイル */
-        .login-container {
-            background: var(--light-blue);
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            margin: 3rem auto;
-        }
+<div class="login-container">
+    <h1>ログイン</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-        h1 {
-            font-size: 1.8rem;
-            text-align: center;
-            color: var(--dark-blue);
-            margin-bottom: 1.5rem;
-        }
+        <!-- 隠しフィールドでnextパラメータを渡す -->
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        
+        <button type="submit">ログイン</button>
+    </form>
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
+    {% for message in messages %}
+        <p class="error-message">{{ message }}</p>
+    {% endfor %}
 
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid var(--soft-gold);
-            border-radius: 4px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        button[type="submit"] {
-            background: var(--dark-blue);
-            color: var(--header-footer-text);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background: var(--soft-gold);
-            color: var(--dark-blue);
-        }
-
-        .error-message {
-            color: red;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        .login-footer a {
-            color: var(--dark-blue);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .login-footer a:hover {
-            text-decoration: underline;
-            color: var(--soft-gold);
-        }
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <h1>ログイン</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            
-            <!-- 隠しフィールドでnextパラメータを渡す -->
-            <input type="hidden" name="next" value="{{ request.GET.next }}">
-            
-            <button type="submit">ログイン</button>
-        </form>
-        {% for message in messages %}
-            <p class="error-message">{{ message }}</p>
-        {% endfor %}
-        <div class="login-footer">
-            <p>アカウントをお持ちでない方は <a href="{% url 'signup' %}">新規登録</a></p>
-        </div>
+    <div class="login-footer">
+        <p>アカウントをお持ちでない方は <a href="{% url 'signup' %}">新規登録</a></p>
     </div>
-</body>
+</div>
 {% endblock %}
