@@ -99,3 +99,4 @@ terraform.tfvars
 *.pem
 
 staticfiles/
+infra/env_setup.sh
