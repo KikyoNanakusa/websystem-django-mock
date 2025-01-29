@@ -3,20 +3,27 @@
 
 {% block title %}ホームページ{% endblock %}
 
-{% block content %}
-<header>
-    <h1>商品カテゴリへようこそ！</h1>
-    <p>カテゴリを選択して、レビューを見たり投稿したりしましょう。</p>
-</header>
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'style/index.css' %}">
+{% endblock %}
 
-<div class="container">
-    <h2>カテゴリ一覧</h2>
-    <ul>
+{% block content %}
+
+<div class="category-container">
+    <h1 class="title">商品カテゴリへようこそ！</h1>
+    <p class="description">カテゴリを選択して、レビューを見たり投稿したりしましょう。</p>
+    <h2 class="subtitle">カテゴリ一覧</h2>
+    <ul class="category-list">
         {% for category in categories %}
-        <li>
-            <a href="{% url 'category_products' category.id %}">{{ category.name }}</a>
+        <li class="category-item">
+            <a href="{% url 'category_products' category.id %}" class="category-link">
+                <div class="category-card">
+                    <span class="category-name">{{ category.name }}</span>
+                </div>
+            </a>
         </li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}
