@@ -3,11 +3,9 @@
 {% block title %}{{ category_key }} のカテゴリ商品一覧{% endblock %}
 
 {% block content %}
-<header>
-    <h1>{{ category_key }} の商品一覧</h1>
-</header>
 
 <div class="container">
+    <h1>{{ category_key }} の商品一覧</h1>
     <ul>
         {% for product in products %}
         <li>
